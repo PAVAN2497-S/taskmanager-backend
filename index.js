@@ -19,20 +19,16 @@ const app = express();
 
 app.use(express.json());
 app.use(helmet());
-app.use(cors({
-    origin: "https://taskmanager-frontend-5yrv-dx2yod0zk-pavan2497s-projects.vercel.app",
-    methods: "GET,POST,PUT,DELETE",
-    credentials: true
-}));
+app.use(cors());
 
 app.use(
     session({
-        secret: process.env.SESSION_SECRET, 
+        secret: process.env.SESSION_SECRET,
         resave: false,
         saveUninitialized: false,
         cookie: {
             maxAge: 60 * 60 * 24 * 365 * 1000,
-            secure: process.env.NODE_ENV === 'production' 
+            secure: process.env.NODE_ENV === 'production'
         }
     })
 );
@@ -40,7 +36,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-passportSetup(); 
+passportSetup();
 
 
 configureDb();
@@ -52,7 +48,7 @@ app.use("/auth", authRoute);
 app.post('/api/register', userValidate(userSchema), user_register);
 app.post('/api/login', userValidate(userLoginSchema), user_login);
 app.get('/api/getprofile', authenticate, getProfile)
-app.get('/api/tasks/user/:userId',authenticate, get_tasks_by_user);
+app.get('/api/tasks/user/:userId', authenticate, get_tasks_by_user);
 // Task routes
 app.post('/api/add-task', authenticate, checkSchema(taskValidationSchema), add_task);
 app.get('/api/task', authenticate, get_task);
