@@ -20,7 +20,7 @@ const app = express();
 app.use(express.json());
 app.use(helmet());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://taskmanager-frontend-5yrv-dx2yod0zk-pavan2497s-projects.vercel.app",
     methods: "GET,POST,PUT,DELETE",
     credentials: true
 }));
